@@ -4,3 +4,38 @@ Author: Faruk Adekunle & Tyler Momoh
 Contact: tylerjusfly1@gmail.com
 File: Custom Css File
 */
+
+/* CSS FOR MODALs  */
+.modal-overlay {
+  position: absolute;
+  z-index: 9;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: #ffffff;
+  color: black;
+  border: 1px solid #bebebe;
+  border-radius: 5px;
+  padding: 12px 16px;
+  position: relative;
+  height: 200px;
+  width: 350px;
+}
+
+.modal-close {
+  position: absolute;
+  right: 8.5px;
+  top: 5px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* CSS FOR ?? */
