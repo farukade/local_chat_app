@@ -38,4 +38,41 @@ File: Custom Css File
   cursor: pointer;
 }
 
-/* CSS FOR ?? */
+/* CSS FOR ANIMATIONS */
+
+@keyframes sliderin {
+  0% {
+    transform: translate3d(110%, 0, 0);
+    visibility: visible;
+    opacity: 0.1;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+}
+
+.slide-in-left {
+  animation: sliderin 1.5s ease-out both;
+}
+
+@keyframes sliderout {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    visibility: hidden;
+    transform: translate3d(110%, 0, 0);
+    opacity: 0.1;
+  }
+}
+
+.slide-out-left {
+  animation: sliderout 2s ease-in both;
+}
+
+/* EXTRA STYLES FOR AUTH */
+.auth-bg-cover {
+  background: linear-gradient(-45deg, #8c9ef1 50%, #ba3be7);
+}

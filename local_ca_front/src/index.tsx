@@ -1,15 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 
+// Global Styles
 import "./index.css";
 import "./assets/stylesheet/custom.css";
+import "react-toastify/dist/ReactToastify.css";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
+import Notify from "./services/Notify";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+Notify.notifications.subscribe((alert) => alert instanceof Function && alert());
+
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <App />
