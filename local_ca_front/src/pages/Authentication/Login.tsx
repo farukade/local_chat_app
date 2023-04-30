@@ -1,65 +1,36 @@
 import React from "react";
-
-// import { Link } from "react-router-dom";
+import { UserIcon, EyeIcon, ArrowLongRightIcon } from "@heroicons/react/24/solid";
+import { APP_NAME } from "../../services/constants";
+import AlertError from "../../Components/Common/Alerts/AlertError";
+import chatLogo from "../../assets/svgs/chat.svg";
 
 const Login = () => {
   return (
     <React.Fragment>
-      <div className="auth-bg-cover py-5 flex justify-center items-center min-h-full">
-        <div className="auth-one-bg">
-          <div className="bg-overlay"></div>
-          <div className="relative h-full flex flex-col justify-center items-center ">
-            <div className="mb-4">
-              {/* <a href="#" className="block">
-                <img
-                  className="rounded-t-lg "
-                  src="https://png.pngtree.com/element_our/png/20181229/vector-chat-icon-png_302635.jpg"
-                  alt=""
-                  height={100}
-                  width={100}
-                />
-              </a> */}
-            </div>
+      <div className="auth-bg-cover py-0 flex justify-center items-center min-h-full">
+        {/* Form Starts Here */}
+        <div className="auth-form overflow-hidden">
+          <div className="flex flex-col items-center justify-center pb-2">
+            <img src={chatLogo} alt="" width={70} />
+            <h1 className="text-center font-mono text-20 text-gray-400 pb-4">{APP_NAME}</h1>
           </div>
-        </div>
-
-        <div className="w-full max-w-xs flex-grow">
-          <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-                Username
-              </label>
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="username"
-                type="text"
-                placeholder="Username"
-              />
-            </div>
-            <div className="mb-6">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                Password
-              </label>
-              <input
-                className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                id="password"
-                type="password"
-                placeholder="******************"
-              />
-              <p className="text-red-500 text-xs italic">Please choose a password.</p>
-            </div>
-            <div className="flex items-center justify-between">
-              <button
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                type="button"
-              >
-                Sign In
-              </button>
-              <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
-                Forgot Password?
-              </a>
-            </div>
-          </form>
+          <AlertError />
+          <div className="form-group relative mb-4">
+            <input type="text" className="form-control" placeholder="Username " id="UserName" />
+            <UserIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
+          </div>
+          <div className="form-group relative mb-4">
+            <input type="password" className="form-control" placeholder="Password" id="Passwod" />
+            <EyeIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
+          </div>
+          <span className="alert">Invalid Credentials</span>
+          <a className="link" href="#">
+            Lost your password?
+          </a>
+          <button className="login-btn bg-gray-700 hover:bg-gray-800 font-bold py-2 px-4 rounded inline-flex justify-center items-center">
+            <span>SignIn</span>
+            <ArrowLongRightIcon className="text-gray-400 dark:text-gray-500 w-7 h-7 mx-2" />
+          </button>
         </div>
       </div>
     </React.Fragment>

@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import AlertError from "./Components/Common/Alerts/AlertError";
-import DeleteModal from "./Components/Common/DeleteModal";
-import ThemeToggler from "./services/ThemeToggler";
 import { ToastContainer } from "react-toastify";
-import { notifyError } from "./services/Notify";
-import { APP_NAME } from "./services/constants";
 import Route from "./Routes/Index";
 
 function App() {
