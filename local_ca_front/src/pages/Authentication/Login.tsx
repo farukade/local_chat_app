@@ -3,8 +3,13 @@ import { UserIcon, EyeIcon, ArrowLongRightIcon } from "@heroicons/react/24/solid
 import { APP_NAME } from "../../services/constants";
 import AlertError from "../../Components/Common/Alerts/AlertError";
 import chatLogo from "../../assets/svgs/chat.svg";
+import { useSearchParams } from "react-router-dom";
 
 const Login = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const errorType = searchParams.get("q");
+
   return (
     <React.Fragment>
       <div className="auth-bg-cover py-0 flex justify-center items-center min-h-full">
@@ -14,7 +19,7 @@ const Login = () => {
             <img src={chatLogo} alt="" width={70} />
             <h1 className="text-center font-mono text-20 text-gray-400 pb-4">{APP_NAME}</h1>
           </div>
-          <AlertError />
+          {errorType && <AlertError message={errorType} />}
           <div className="form-group relative mb-4">
             <input type="text" className="form-control" placeholder="Username " id="UserName" />
             <UserIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />

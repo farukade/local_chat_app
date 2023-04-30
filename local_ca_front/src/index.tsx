@@ -10,12 +10,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Notify from "./services/Notify";
 
+// Bring Redux to the whole application
+import { Provider } from "react-redux";
+import { store } from "./redux/App/store";
+
 Notify.notifications.subscribe((alert) => alert instanceof Function && alert());
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
