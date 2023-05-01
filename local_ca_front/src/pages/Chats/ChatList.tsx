@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ChatList = () => {
-  return <div>ChatList</div>;
+  return (
+    <div>
+      <h1>Chat list</h1>
+    </div>
+  );
 };
 
 export default ChatList;

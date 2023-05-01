@@ -3,12 +3,18 @@ import { UserIcon, EyeIcon, ArrowLongRightIcon } from "@heroicons/react/24/solid
 import { APP_NAME } from "../../services/constants";
 import AlertError from "../../Components/Common/Alerts/AlertError";
 import chatLogo from "../../assets/svgs/chat.svg";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const errorType = searchParams.get("q");
+
+  const setUser = () => {
+    navigate("/chats");
+  };
 
   return (
     <React.Fragment>
@@ -32,9 +38,12 @@ const Login = () => {
           <a className="link" href="#">
             Lost your password?
           </a>
-          <button className="login-btn bg-gray-700 hover:bg-gray-800 font-bold py-2 px-4 rounded inline-flex justify-center items-center">
+          <button
+            className="login-btn bg-gray-700 hover:bg-gray-800 font-bold py-2 px-4 rounded inline-flex justify-center items-center"
+            onClick={setUser}
+          >
             <span>SignIn</span>
-            <ArrowLongRightIcon className="text-gray-400 dark:text-gray-500 w-7 h-7 mx-2" />
+            <ArrowLongRightIcon className=" text-gray-400 dark:text-gray-500 w-7 h-7 mx-2" />
           </button>
         </div>
       </div>

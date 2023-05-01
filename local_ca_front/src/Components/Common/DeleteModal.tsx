@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { CSSTransition } from "react-transition-group";
 
@@ -9,11 +9,13 @@ type DeleteProps = {
 };
 
 const DeleteModal = ({ show, onDeleteClick, onCloseClick }: DeleteProps) => {
+  const nodeRef = useRef(null);
+
   return (
-    <Fragment>
-      {show && (
+    <CSSTransition in={show} nodeRef={nodeRef} timeout={300} classNames="alert" unmountOnExit>
+      <Fragment>
         <div className="modal-overlay">
-          <div className={`modal ${show ? "slide-in-left" : "slide-out-left"}`}>
+          <div className={`modal`} ref={nodeRef}>
             <button
               className="modal-close text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
               onClick={onCloseClick}
@@ -42,8 +44,8 @@ const DeleteModal = ({ show, onDeleteClick, onCloseClick }: DeleteProps) => {
             </div>
           </div>
         </div>
-      )}
-    </Fragment>
+      </Fragment>
+    </CSSTransition>
   );
 };
 

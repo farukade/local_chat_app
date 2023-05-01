@@ -1,5 +1,4 @@
-import { ReactNode } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { RootStore } from "../redux/App/store";
 import { connect, ConnectedProps } from "react-redux";
 
@@ -9,12 +8,12 @@ const mapStateToProps = (state: RootStore) => {
 
 const connector = connect(mapStateToProps);
 
-type protectedProps = { children: any } & ConnectedProps<typeof connector>;
+type protectedProps = { redirectPath?: string } & ConnectedProps<typeof connector>;
 
-const ProtectedUser = ({ isLoggedIn, children }: protectedProps) => {
+const ProtectedUser = ({ isLoggedIn, redirectPath = "/?q=unauthenticated" }: protectedProps) => {
   if (!isLoggedIn) {
-    return <Navigate to="/?q=unauthenticated" replace />;
+    return <Navigate to={redirectPath} replace />;
   }
-  return children;
+  return <Outlet />;
 };
 export default connector(ProtectedUser);
