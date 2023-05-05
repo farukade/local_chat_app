@@ -22,16 +22,17 @@ export const sequelize = new Sequelize(database, user, password, {
     acquire: 20000,
     idle: 5000
   },
+  logging: false
 });
 
 export const dbConnection = async () => {
   try {
     await sequelize.authenticate();
-    await sequelize.sync({
-      alter: true,
-      // force: true
-    });
-    console.log(`HOST-${host}::DIALECT-postgres::DATABASE-${database}::USER-${user}::-CONNECTED`)
+    // await sequelize.sync({
+    //   alter: true,
+    //   // force: true
+    // });
+    console.log(`\x1b[33m[HOST] ${host}\n[DIALECT] postgres\n[DATABASE] ${database}\n[USER] ${user}\n[STATUS] CONNECTED \x1b[0m`)
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
