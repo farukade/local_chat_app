@@ -3,7 +3,7 @@ import { UserIcon, EyeIcon, ArrowLongRightIcon } from "@heroicons/react/24/solid
 import { APP_NAME } from "../../services/constants";
 import AlertError from "../../Components/Common/Alerts/AlertError";
 import chatLogo from "../../assets/svgs/chat.svg";
-import { useLocation, useSearchParams, useNavigate } from "react-router-dom";
+import { useLocation, useSearchParams, useNavigate, Link } from "react-router-dom";
 import FullpageLoader from "../../Components/Common/FullpageLoader";
 
 const Login = () => {
@@ -22,39 +22,40 @@ const Login = () => {
 
   return (
     <React.Fragment>
-      {logging ? (
-        <FullpageLoader />
-      ) : (
-        <div className="auth-bg-cover py-0 flex justify-center items-center min-h-full">
-          {/* Form Starts Here */}
-          <div className="auth-form overflow-hidden">
-            <div className="flex flex-col items-center justify-center pb-2">
-              <img src={chatLogo} alt="" width={70} />
-              <h1 className="text-center font-mono text-20 text-gray-400 pb-4">{APP_NAME}</h1>
-            </div>
-            {errorType && <AlertError message={errorType} />}
-            <div className="form-group relative mb-4">
-              <input type="text" className="form-control" placeholder="Username " id="UserName" />
-              <UserIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
-            </div>
-            <div className="form-group relative mb-4">
-              <input type="password" className="form-control" placeholder="Password" id="Passwod" />
-              <EyeIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
-            </div>
-            <span className="alert">Invalid Credentials</span>
-            <a className="link" href="#">
-              Lost your password?
-            </a>
-            <button
-              className="login-btn bg-gray-700 hover:bg-gray-800 font-bold py-2 px-4 rounded inline-flex justify-center items-center"
-              onClick={setUser}
-            >
-              <span>SignIn</span>
-              <ArrowLongRightIcon className=" text-gray-400 dark:text-gray-500 w-7 h-7 mx-2" />
-            </button>
+      {logging && <FullpageLoader />}
+      <div className="auth-bg-cover py-0 flex justify-center items-center min-h-full">
+        {/* Form Starts Here */}
+        <div className="auth-form overflow-hidden">
+          <div className="flex flex-col items-center justify-center pb-2">
+            <img src={chatLogo} alt="" width={70} />
+            <h1 className="text-center font-mono text-20 text-gray-400 pb-4">{APP_NAME}</h1>
           </div>
+          {errorType && <AlertError message={errorType} />}
+          <div className="form-group relative mb-4">
+            <input type="text" className="form-control" placeholder="Username " id="UserName" />
+            <UserIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
+          </div>
+          <div className="form-group relative mb-4">
+            <input type="password" className="form-control" placeholder="Password" id="Passwod" />
+            <EyeIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
+          </div>
+          <span className="alert">Invalid Credentials</span>
+          <a className="link" href="#">
+            Lost your password?
+          </a>
+          <button
+            className="login-btn bg-gray-700 hover:bg-gray-800 font-bold py-2 px-4 rounded inline-flex justify-center items-center"
+            onClick={setUser}
+          >
+            <span>SignIn</span>
+            <ArrowLongRightIcon className=" text-gray-400 dark:text-gray-500 w-7 h-7 mx-2" />
+          </button>
+
+          <Link to="/sign-up" className="link mt-4">
+            Don't Have an Account&nbsp;?
+          </Link>
         </div>
-      )}
+      </div>
     </React.Fragment>
   );
 };
