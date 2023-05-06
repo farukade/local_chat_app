@@ -3,11 +3,9 @@ import FullpageLoader from "../../Components/Common/FullpageLoader";
 
 const ChatList = () => {
   const [loading, setLoading] = useState(true);
-  return loading ? (
-    <FullpageLoader />
-  ) : (
+  return (
     <div>
-      <h1>Chat list</h1>
+      <p>This is part of the modal</p>
     </div>
   );
 };

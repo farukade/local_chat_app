@@ -16,8 +16,8 @@ const Login = () => {
   const errorType = searchParams.get("q");
 
   const setUser = () => {
-    setLogging(true);
-    // navigate("/chats");
+    // setLogging(true);
+    navigate("/chats");
   };
 
   return (
