@@ -2,10 +2,9 @@ import { Request, Response } from 'express';
 import { config } from 'dotenv';
 import * as jwtAuth from 'jsonwebtoken';
 import { constants } from '../controllers/constants';
-config()
-
+const handleBadRequest = constants?.handleBadRequest;
+config();
 const secret = process.env.SECRET;
-const { handleBadRequest } = constants;
 
 export const requsetLogger = (req: Request, res: Response, next: Function) => {
   const { method, originalUrl: url, ip, protocol } = req;
@@ -17,6 +16,10 @@ export const requsetLogger = (req: Request, res: Response, next: Function) => {
   });
 
   next();
+}
+
+export const errorLogger = (error: any) => {
+  console.log(`\x1b[31m ${error} \x1b[0m`);
 }
 
 export const logger = (color: string, message: any, bg = 'default') => {

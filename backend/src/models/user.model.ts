@@ -1,5 +1,4 @@
-import { DataTypes, Model } from "sequelize";
-import { sequelize } from './index';
+import { Model, Sequelize } from "sequelize";
 
 export class User extends Model {
   id!: string;
@@ -14,55 +13,56 @@ export class User extends Model {
   photo?: string;
   details?: string;
 }
-
-User.init({
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
-  created_at: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  updated_at: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  deleted_at: {
-    type: DataTypes.DATE,
-  },
-  deleted_by: {
-    type: DataTypes.STRING,
-  },
-  username: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  password: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  user_type: {
-    type: DataTypes.STRING,
-    allowNull: false,
-    defaultValue: "regular"
-  },
-  photo: {
-    type: DataTypes.STRING,
-  },
-  salt: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  details: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-}, {
-  sequelize,
-  modelName: 'User',
-  timestamps: false
-});
+export const UserModel = (sequelize: Sequelize, dataType: any) => {
+  User.init({
+    id: {
+      type: dataType.UUID,
+      defaultValue: dataType.UUIDV4,
+      primaryKey: true,
+    },
+    created_at: {
+      type: dataType.DATE,
+      allowNull: false,
+      defaultValue: dataType.NOW,
+    },
+    updated_at: {
+      type: dataType.DATE,
+      allowNull: false,
+      defaultValue: dataType.NOW,
+    },
+    deleted_at: {
+      type: dataType.DATE,
+    },
+    deleted_by: {
+      type: dataType.STRING,
+    },
+    username: {
+      type: dataType.STRING,
+      allowNull: false
+    },
+    password: {
+      type: dataType.STRING,
+      allowNull: false
+    },
+    user_type: {
+      type: dataType.STRING,
+      allowNull: false,
+      defaultValue: "regular"
+    },
+    photo: {
+      type: dataType.STRING,
+    },
+    salt: {
+      type: dataType.STRING,
+      allowNull: false,
+    },
+    details: {
+      type: dataType.STRING,
+      allowNull: false
+    },
+  }, {
+    sequelize,
+    modelName: 'User',
+    timestamps: false
+  });
+}
