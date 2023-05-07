@@ -1,7 +1,6 @@
-import { DataTypes, Model } from "sequelize";
-import { sequelize } from './index';
+import { Model, Sequelize } from "sequelize";
 
-export class User extends Model {
+export class Chat extends Model {
   id!: string;
   created_at!: Date;
   updated_at!: Date;
@@ -13,49 +12,58 @@ export class User extends Model {
   is_read!: boolean;
 }
 
-User.init({
-  id: {
-    type: DataTypes.UUID,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true,
-  },
-  created_at: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  updated_at: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
-  deleted_at: {
-    type: DataTypes.DATE,
-  },
-  deleted_by: {
-    type: DataTypes.STRING,
-  },
-  body: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  is_sent: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: true
-  },
-  is_delivered: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false
-  },
-  is_read: {
-    type: DataTypes.BOOLEAN,
-    allowNull: false,
-    defaultValue: false
-  },
-}, {
-  sequelize,
-  modelName: 'User',
-  timestamps: false
-});
+export const chatModel = (sequelize: Sequelize, dataType: any) => {
+  Chat.init({
+    id: {
+      type: dataType.UUID,
+      defaultValue: dataType.UUIDV4,
+      primaryKey: true,
+    },
+    created_at: {
+      type: dataType.DATE,
+      allowNull: false,
+      defaultValue: dataType.NOW,
+    },
+    updated_at: {
+      type: dataType.DATE,
+      allowNull: false,
+      defaultValue: dataType.NOW,
+    },
+    deleted_at: {
+      type: dataType.DATE,
+    },
+    deleted_by: {
+      type: dataType.STRING,
+    },
+    body: {
+      type: dataType.STRING,
+      allowNull: false
+    },
+    is_sent: {
+      type: dataType.BOOLEAN,
+      allowNull: false,
+      defaultValue: true
+    },
+    is_delivered: {
+      type: dataType.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
+    is_read: {
+      type: dataType.BOOLEAN,
+      allowNull: false,
+      defaultValue: false
+    },
+    sender_id: {
+      type: dataType.STRING,
+      allowNull: false,
+    },
+    recipient_id: {
+      type: dataType.STRING,
+    },
+  }, {
+    sequelize,
+    modelName: 'Chat',
+    timestamps: false
+  });
+}
