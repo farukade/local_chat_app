@@ -7,10 +7,26 @@
 }
 
 .swal-button {
-  padding: 7px 19px;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 4px !important;
+  justify-content: center !important;
+  align-items: center !important;
   border-radius: 2px;
-  background-color: #49b36c;
+  outline-style: hidden !important;
   font-size: 12px;
-  border: 1px solid #3e549a;
+  font-weight: 700 !important;
   text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
+.swal-button:focus {
+  box-shadow: none !important;
+}
+
+.swal-text {
+  font-weight: 700 !important;
+  padding: 17px;
+  text-align: center !important;
+  color: #61534e !important;
+  display: block !important;
+  font-family: "Trebuchet MS", Arial !important;
 }

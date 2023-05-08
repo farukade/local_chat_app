@@ -5,23 +5,22 @@ const ThemeToggler = () => {
   const { theme, toggleTheme } = useToggler();
 
   return (
-    <div className="fixed duration-100 dark:bg-slate-700 bg-gray-100 rounded">
-      <button
+    <div className="flex flex-row gap-4 px-2 justify-self-center justify-center duration-100 rounded">
+      <SunIcon
         key={"light"}
-        className={`w-8 h-8 leading-9 text-xl rounded-full m-1 ${theme === "light" && "text-sky-600"}`}
+        className={`w-5 h-5 leading-9 text-xl rounded-full ${theme === "light" && "text-sky-600"}`}
         onClick={() => toggleTheme("light")}
-      >
-        <SunIcon className="h-6 w-6" />
-      </button>
-      <button
+      />
+
+      <MoonIcon
         key={"dark"}
-        className={`w-8 h-8 leading-9 text-xl rounded-full m-1 ${theme === "dark" && "text-sky-600"}`}
+        className={`w-5 h-5 leading-9 text-xl rounded-full ${theme === "dark" && "text-sky-600"}`}
         onClick={() => toggleTheme("dark")}
-      >
-        <MoonIcon className="h-6 w-6" />
-      </button>
+      />
     </div>
   );
 };
+
+//  bg-white dark:bg-slate-800
 
 export default ThemeToggler;

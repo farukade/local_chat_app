@@ -14,13 +14,17 @@ import Notify from "./services/Notify";
 import { Provider } from "react-redux";
 import { store } from "./redux/App/store";
 
+import { ProSidebarProvider } from "react-pro-sidebar";
+
 Notify.notifications.subscribe((alert) => alert instanceof Function && alert());
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ProSidebarProvider>
+        <App />
+      </ProSidebarProvider>
     </Provider>
   </React.StrictMode>
 );
