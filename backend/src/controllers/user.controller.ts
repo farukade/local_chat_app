@@ -7,13 +7,13 @@ import { getToken, isValidPassword } from '../utils/utils';
 import { constants } from './constants';
 const { handleError, handleBadRequest, handleSuccess } = constants;
 
-const UserController = {
+export const userController = {
   get: async (req: Request, res: Response) => {
     try {
       const { id } = req.query;
 
-      if (id && id !== "") {
-        const result = await User.findByPk(+id);
+      if (id) {
+        const result = await User.findOne({ where: { id } });
         if (result) return handleSuccess(res, result, "user found", 200, null);
         return handleBadRequest(res, 400, "user not found");
       } else {
@@ -42,6 +42,12 @@ const UserController = {
       const salt = randomBytes(30).toString('hex');
       const hash = pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString(`hex`);
 
+      console.log({
+        username: username.toLowerCase(),
+        password: hash,
+        salt,
+        ...restBody
+      });
       const user = new User({
         username: username.toLowerCase(),
         password: hash,
@@ -104,7 +110,17 @@ const UserController = {
   },
   verify: async (req: Request, res: Response) => {
     return handleSuccess(res, null, "verification success", 200, null);
+  },
+  getUserLocal: async (id: string) => {
+    try {
+      if (id) {
+        const result = await User.findByPk(id);
+        if (result) return result
+        return false;
+      }
+      return false;
+    } catch (error) {
+      handleError(null, error);
+    }
   }
 }
-
-export default UserController;

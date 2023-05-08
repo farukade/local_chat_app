@@ -40,3 +40,8 @@ export const isValidPassword = async (user: IUser, password: string): Promise<IR
   };
   return { success: false, message: "password verification failed" }
 }
+
+export const getChatRoomId = (arr: string[]) => {
+  const sortedArr = arr.sort();
+  return sortedArr.join('-');
+};
