@@ -42,12 +42,6 @@ export const userController = {
       const salt = randomBytes(30).toString('hex');
       const hash = pbkdf2Sync(password, salt, 1000, 64, `sha512`).toString(`hex`);
 
-      console.log({
-        username: username.toLowerCase(),
-        password: hash,
-        salt,
-        ...restBody
-      });
       const user = new User({
         username: username.toLowerCase(),
         password: hash,
@@ -75,7 +69,7 @@ export const userController = {
 
       let rs = await isValidPassword(user, password);
       if (rs.success) {
-        const token = await getToken(rs?.data?._id);
+        const token = await getToken(rs?.data?.id);
         return handleSuccess(res, token, rs?.message, 200, null);
       }
       return handleBadRequest(res, 400, rs.message || "unexpected error");
