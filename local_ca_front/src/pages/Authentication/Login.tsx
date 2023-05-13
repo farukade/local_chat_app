@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { UserIcon, EyeIcon, ArrowLongRightIcon } from "@heroicons/react/24/solid";
-import { APP_NAME } from "../../services/constants";
+import { APP_NAME } from "../../utils/constants";
 import AlertError from "../../Components/Common/Alerts/AlertError";
 import chatLogo from "../../assets/svgs/chat.svg";
 import { useLocation, useSearchParams, useNavigate, Link } from "react-router-dom";
@@ -10,6 +10,12 @@ const Login = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  /*User Inputs */
+  const [loginDetails, setLoginDetails] = useState({
+    username: "",
+    password: "",
+  });
 
   const [logging, setLogging] = useState(false);
 

@@ -4,9 +4,9 @@ import chatLogo from "../../assets/svgs/chat.svg";
 
 import { UserIcon, EyeIcon, ArrowLongRightIcon } from "@heroicons/react/24/solid";
 import { Link } from "react-router-dom";
-import { APP_NAME } from "../../services/constants";
+import { APP_NAME } from "../../utils/constants";
 import AlertError from "../../Components/Common/Alerts/AlertError";
-import { RegisterSuccess } from "../../services/PopupTab";
+import { RegisterSuccess } from "../../utils/PopupTab";
 
 const SignUp = () => {
   const [authenticating, setAuthenticating] = useState(false);

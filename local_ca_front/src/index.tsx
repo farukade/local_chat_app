@@ -8,7 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import Notify from "./services/Notify";
+import Notify from "./utils/Notify";
 
 // Bring Redux to the whole application
 import { Provider } from "react-redux";
