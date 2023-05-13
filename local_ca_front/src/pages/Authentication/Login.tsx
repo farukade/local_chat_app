@@ -6,7 +6,7 @@ import chatLogo from "../../assets/svgs/chat.svg";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import FullpageLoader from "../../Components/Common/FullpageLoader";
 import { useLoginWithUser } from "../../Hooks/useAuthenticationData";
-import { LoginParams } from "../../utils/types";
+import { ILoginParams, ILoginResponse } from "../../utils/types";
 import { UseMutationResult } from "react-query";
 import { useDispatch } from "react-redux";
 import { setLoggedInUser } from "../../redux/Features/authSlice";
@@ -18,7 +18,7 @@ const Login = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   /*User Inputs */
-  const [loginDetails, setLoginDetails] = useState({
+  const [loginDetails, setLoginDetails] = useState<ILoginParams>({
     username: "",
     password: "",
   });
@@ -38,15 +38,15 @@ const Login = () => {
     console.log("dont be a failure", err);
   };
 
-  const onSuccess = (data: any) => {
+  const onSuccess = (data: ILoginResponse, _variables: ILoginParams) => {
     /**set user and Redirect */
     dispatch(setLoggedInUser(true));
     navigate("/chats");
-    localStorage.setItem("token", JSON.stringify(data.data.result));
+    localStorage.setItem("lca_user", JSON.stringify(data.data.result));
     notifySuccess("Login successful");
   };
 
-  const mutation: UseMutationResult<any, any, LoginParams, unknown> = useLoginWithUser();
+  const mutation: UseMutationResult<any, any, ILoginParams, unknown> = useLoginWithUser();
 
   const setUser = () => {
     console.log(loginDetails);
@@ -90,7 +90,7 @@ const Login = () => {
             <EyeIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
           </div>
 
-          {mutation.isError && <span className="alert">{mutation.error.response.data.message}</span>}
+          {mutation.isError && <span className="alert">{mutation.error.response?.data.message}</span>}
 
           <a className="link" href="#">
             Lost your password?

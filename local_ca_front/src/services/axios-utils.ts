@@ -1,14 +1,31 @@
 import axios from "axios";
+import { IAxiosRequestOptions, ILocalStorageUser } from "../utils/types";
+import { store } from "../redux/App/store";
+import { setLoggedInUser } from "../redux/Features/authSlice";
 
-const client = axios.create({ baseURL: "http://localhost:7001" });
+export const axiosInstance = axios.create({
+  baseURL: "http://localhost:7001",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
-export const request = ({ ...options }) => {
-  client.defaults.headers.common.Authorization = `Bearer kdkdkdkdkdk`;
-  const onSuccess = (response: any) => response;
-  const onError = (error: any) => {
-    // console.log(error.response.data);
-    return error;
-  };
+axiosInstance.interceptors.request.use((config) => {
+  console.log("rnadom call", config);
 
-  return client(options).then(onSuccess).catch(onError);
+  // store.dispatch(setLoggedInUser(false));
+
+  return config;
+});
+
+export const request = ({ isAuth, ...options }: IAxiosRequestOptions) => {
+  const item = localStorage.getItem("lca_user");
+  const user: ILocalStorageUser = item ? JSON.parse(item) : null;
+
+  if (isAuth && user) {
+    console.log(isAuth, user);
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${user.token}`;
+  }
+
+  return axiosInstance(options);
 };

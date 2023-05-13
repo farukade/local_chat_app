@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 import { QueryClientProvider, QueryClient } from "react-query";
 import Route from "./Routes/Index";
