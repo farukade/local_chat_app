@@ -198,11 +198,3 @@ File: Custom Css File
   width: 100%;
   min-width: 100%;
 }
-
-a:hover {
-  color: #fff !important;
-  font-size: 1rem;
-  background-color: #0f172a !important;
-  border-radius: 3px !important;
-  font-family: "Trebuchet MS", "Lucida Sans Unicode";
-}

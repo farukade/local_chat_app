@@ -3,12 +3,18 @@ import { UserIcon, EyeIcon, ArrowLongRightIcon } from "@heroicons/react/24/solid
 import { APP_NAME } from "../../utils/constants";
 import AlertError from "../../Components/Common/Alerts/AlertError";
 import chatLogo from "../../assets/svgs/chat.svg";
-import { useLocation, useSearchParams, useNavigate, Link } from "react-router-dom";
+import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import FullpageLoader from "../../Components/Common/FullpageLoader";
+import { useLoginWithUser } from "../../Hooks/useAuthenticationData";
+import { LoginParams } from "../../utils/types";
+import { UseMutationResult } from "react-query";
+import { useDispatch } from "react-redux";
+import { setLoggedInUser } from "../../redux/Features/authSlice";
+import { notifySuccess } from "../../utils/Notify";
 
 const Login = () => {
-  const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
   /*User Inputs */
@@ -17,18 +23,42 @@ const Login = () => {
     password: "",
   });
 
-  const [logging, setLogging] = useState(false);
+  const changeLoginDetails = (e: { target: { name: string; value: string } }) => {
+    let { name, value } = e.target;
+
+    setLoginDetails((prevValue) => ({
+      ...prevValue,
+      [name]: value,
+    }));
+  };
 
   const errorType = searchParams.get("q");
 
-  const setUser = () => {
-    // setLogging(true);
+  const onFailure = (err: any) => {
+    console.log("dont be a failure", err);
+  };
+
+  const onSuccess = (data: any) => {
+    /**set user and Redirect */
+    dispatch(setLoggedInUser(true));
     navigate("/chats");
+    localStorage.setItem("token", JSON.stringify(data.data.result));
+    notifySuccess("Login successful");
+  };
+
+  const mutation: UseMutationResult<any, any, LoginParams, unknown> = useLoginWithUser();
+
+  const setUser = () => {
+    console.log(loginDetails);
+    mutation.mutate(loginDetails, {
+      onError: onFailure,
+      onSuccess,
+    });
   };
 
   return (
     <React.Fragment>
-      {logging && <FullpageLoader />}
+      {mutation.isLoading && <FullpageLoader />}
       <div className="auth-bg-cover py-0 flex justify-center items-center min-h-full">
         {/* Form Starts Here */}
         <div className="auth-form overflow-hidden">
@@ -38,14 +68,30 @@ const Login = () => {
           </div>
           {errorType && <AlertError message={errorType} />}
           <div className="form-group relative mb-4">
-            <input type="text" className="form-control" placeholder="Username " id="UserName" />
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Username "
+              name="username"
+              value={loginDetails.username}
+              onChange={changeLoginDetails}
+            />
             <UserIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
           </div>
           <div className="form-group relative mb-4">
-            <input type="password" className="form-control" placeholder="Password" id="Passwod" />
+            <input
+              type="password"
+              className="form-control"
+              placeholder="Password"
+              name="password"
+              value={loginDetails.password}
+              onChange={changeLoginDetails}
+            />
             <EyeIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
           </div>
-          <span className="alert">Invalid Credentials</span>
+
+          {mutation.isError && <span className="alert">{mutation.error.response.data.message}</span>}
+
           <a className="link" href="#">
             Lost your password?
           </a>
