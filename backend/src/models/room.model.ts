@@ -1,19 +1,17 @@
 import { Model, Sequelize } from "sequelize";
 
-export class Chat extends Model {
+export class Room extends Model {
   id!: string;
   created_at!: Date;
   updated_at!: Date;
   deleted_at?: Date;
   deleted_by?: string;
-  body!: string;
-  is_sent!: boolean;
-  is_delivered!: boolean;
-  is_read!: boolean;
+  name!: string;
+  slug!: string;
+  description?: string;
 }
-
-export const chatModel = (sequelize: Sequelize, dataType: any) => {
-  Chat.init({
+export const RoomModel = (sequelize: Sequelize, dataType: any) => {
+  Room.init({
     id: {
       type: dataType.UUID,
       defaultValue: dataType.UUIDV4,
@@ -35,35 +33,21 @@ export const chatModel = (sequelize: Sequelize, dataType: any) => {
     deleted_by: {
       type: dataType.STRING,
     },
-    body: {
+    name: {
       type: dataType.STRING,
       allowNull: false
     },
-    is_sent: {
-      type: dataType.BOOLEAN,
-      allowNull: false,
-      defaultValue: true
-    },
-    is_delivered: {
-      type: dataType.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    },
-    is_read: {
-      type: dataType.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    },
-    sender_id: {
+    slug: {
       type: dataType.STRING,
       allowNull: false,
+      unique: true
     },
-    recipient_id: {
+    description: {
       type: dataType.STRING,
-    },
+    }
   }, {
     sequelize,
-    modelName: 'chat',
+    modelName: 'room',
     timestamps: false
   });
 }

@@ -3,6 +3,8 @@ import { IDatabase } from '../types/database-connect-data.interface';
 import { config } from 'dotenv';
 import { UserModel } from './user.model';
 import { chatModel } from './chat.model';
+import { RoomModel } from './room.model';
+import { UserRoomModel } from './user_room_rooms.model';
 config();
 
 const dbConnectionData: IDatabase = {
@@ -41,6 +43,8 @@ export const dbConnection = async () => {
   db.sequelize = sequelize;
   db.user = UserModel(sequelize, Sequelize);
   db.chat = chatModel(sequelize, Sequelize);
+  db.room = RoomModel(sequelize, Sequelize);
+  db.userRoom = UserRoomModel(sequelize, Sequelize);
 
   db.sequelize.sync({
     alter: true,

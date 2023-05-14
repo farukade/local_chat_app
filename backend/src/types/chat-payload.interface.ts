@@ -3,7 +3,7 @@ export interface IChat {
   sender_id: string;
   recipient_id: string;
   body: string;
-  room_id?: number;
+  room_id?: string;
   is_sent?: boolean;
   is_support?: boolean;
   created_at?: Date,

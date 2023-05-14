@@ -62,7 +62,7 @@ export const UserModel = (sequelize: Sequelize, dataType: any) => {
     },
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'user',
     timestamps: false
   });
 }
