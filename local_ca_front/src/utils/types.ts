@@ -4,6 +4,12 @@ export interface IAxiosRequestOptions {
   [key: string]: any;
 }
 
+export interface ISignupParams {
+  username: string;
+  password: string;
+  details: string;
+}
+
 export interface ILoginParams {
   username: string;
   password: string;

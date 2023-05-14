@@ -18,7 +18,7 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
-export const request = ({ isAuth, ...options }: IAxiosRequestOptions) => {
+export const request = ({ isAuth = false, ...options }: IAxiosRequestOptions) => {
   const item = localStorage.getItem("lca_user");
   const user: ILocalStorageUser = item ? JSON.parse(item) : null;
 
