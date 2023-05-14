@@ -6,7 +6,7 @@ const { getUserLocal } = userController;
 const { handleError } = constants;
 
 export const chatController = {
-  saveChat: async (data: IChat, chat_id: string, room_id: number | null) => {
+  saveChat: async (data: IChat, chat_id: string | null, room_id: string | null) => {
     try {
       let recipient;
       if (data.recipient_id) {
