@@ -24,6 +24,7 @@ const Login = () => {
   });
 
   const changeLoginDetails = (e: { target: { name: string; value: string } }) => {
+    // const { name, value } = e.target as HTMLInputElement;
     let { name, value } = e.target;
 
     setLoginDetails((prevValue) => ({
@@ -90,7 +91,7 @@ const Login = () => {
             <EyeIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
           </div>
 
-          {mutation.isError && <span className="alert">{mutation.error.response?.data.message}</span>}
+          {mutation.isError && <span className="alert">{mutation.error.response?.data.message || mutation.error.message}</span>}
 
           <a className="link" href="#">
             Lost your password?

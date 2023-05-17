@@ -21,7 +21,6 @@ const SignUp = () => {
   };
 
   const {
-    data,
     isLoading,
     isFetching,
     isError,
@@ -35,7 +34,7 @@ const SignUp = () => {
 
   return (
     <React.Fragment>
-      {isLoading || (isFetching && <FullpageLoader />)}
+      {isFetching && <FullpageLoader />}
       <div className="auth-bg-cover py-0 flex justify-center items-center min-h-full">
         {/* Form Starts Here */}
         <div className="auth-form overflow-hidden">
@@ -64,7 +63,7 @@ const SignUp = () => {
             />
             <EyeIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
           </div>
-          {isError && <span className="alert">{signupError?.response?.data.message}</span>}
+          {isError && <span className="alert">{signupError?.response?.data.message || signupError.message}</span>}
           <Link to="/" className="link">
             Already Have an Account&nbsp;?
           </Link>

@@ -4,7 +4,7 @@ const ViewMessage = () => {
   return (
     <div>
       <div className="p-4">
-        <h1 className="mb-4">Momoh&nbsp;Taiwohhvhfhfhfhfhfhfhfhfhfhfhfhfh</h1>
+        <div className={`animate-pulse bg-gray-500`}></div>
         <hr />
       </div>
       <div className="chats"></div>

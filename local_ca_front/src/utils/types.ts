@@ -1,3 +1,5 @@
+import { AxiosError } from "axios";
+
 /**AXIOS TYPES */
 export interface IAxiosRequestOptions {
   isAuth?: boolean;
@@ -9,6 +11,8 @@ export interface ISignupParams {
   password: string;
   details: string;
 }
+
+type CreateDetails = Omit<ISignupParams, "details">;
 
 export interface ILoginParams {
   username: string;

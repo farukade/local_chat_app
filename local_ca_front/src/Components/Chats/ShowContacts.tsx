@@ -14,12 +14,13 @@ const ShowContacts = () => {
     <div id="showContacts">
       <Sidebar className="pro-sidebar dark:bg-slate-900">
         <Menu className="dark:bg-slate-900 dark:hover:bg-opacity-90">
-          <div className="m-l-20 flex flex-row gap-5 p-5 items-center">
+          <div className="m-l-20 flex flex-row justify-between p-5 items-center">
             <DisplayImage />
-            <VideoCameraIcon className="Top-Icon w-5 h-5" />
-            <HomeIcon className="Top-Icon w-5 h-5" />
-            <ChatBubbleLeftRightIcon className="Top-Icon w-5 h-5" />
-            <ThemeToggler />
+            <div className=" flex flex-row gap-6">
+              <VideoCameraIcon className="Top-Icon w-5 h-5" />
+              <ChatBubbleLeftRightIcon className="Top-Icon w-5 h-5" />
+              <ThemeToggler />
+            </div>
           </div>
           <hr />
         </Menu>
@@ -32,11 +33,6 @@ const ShowContacts = () => {
           <MenuItem active={true} icon={<DisplayImage />}>
             Adekunle Faruk
           </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
           <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
           <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
           <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
