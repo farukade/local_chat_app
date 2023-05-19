@@ -1,9 +1,0 @@
-#header {
-  display: flex;
-  position: absolute;
-  height: 100%;
-}
-
-#header .pro-sidebar {
-  height: 100vh;
-}

@@ -1,8 +1,4 @@
-import React from "react";
-
-type alertProps = {
-  message: string;
-};
+import { alertProps } from "../../../utils/types";
 
 const AlertError = ({ message }: alertProps) => {
   return (
