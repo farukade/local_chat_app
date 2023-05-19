@@ -19,6 +19,11 @@ export interface ILoginParams {
   password: string;
 }
 
+export type OptionalLoginParams = Omit<ILoginParams, "username" | "password"> & {
+  username?: string;
+  password?: string;
+};
+
 export interface ILoginResponse {
   data: {
     success: boolean;
@@ -42,3 +47,11 @@ export interface ILocalStorageUser {
     id: string;
   };
 }
+
+export type IErrorBlock = {
+  name: string;
+};
+
+export type alertProps = {
+  message: string;
+};

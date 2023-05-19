@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { UserIcon, EyeIcon, ArrowLongRightIcon } from "@heroicons/react/24/solid";
 import { APP_NAME } from "../../utils/constants";
 import AlertError from "../../Components/Common/Alerts/AlertError";
@@ -6,32 +6,26 @@ import chatLogo from "../../assets/svgs/chat.svg";
 import { useSearchParams, useNavigate, Link } from "react-router-dom";
 import FullpageLoader from "../../Components/Common/FullpageLoader";
 import { useLoginWithUser } from "../../Hooks/useAuthenticationData";
-import { ILoginParams, ILoginResponse } from "../../utils/types";
+import { IErrorBlock, ILoginParams, ILoginResponse, OptionalLoginParams } from "../../utils/types";
 import { UseMutationResult } from "react-query";
 import { useDispatch } from "react-redux";
 import { setLoggedInUser } from "../../redux/Features/authSlice";
 import { notifySuccess } from "../../utils/Notify";
 
+import { Form, Field } from "react-final-form";
+
+const ErrorBlock = ({ name }: IErrorBlock) => (
+  <Field
+    name={name}
+    subscription={{ touched: true, error: true }}
+    render={({ meta: { touched, error } }) => (touched && error ? <small className="text-red-700">{error}</small> : null)}
+  />
+);
+
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
-
-  /*User Inputs */
-  const [loginDetails, setLoginDetails] = useState<ILoginParams>({
-    username: "",
-    password: "",
-  });
-
-  const changeLoginDetails = (e: { target: { name: string; value: string } }) => {
-    // const { name, value } = e.target as HTMLInputElement;
-    let { name, value } = e.target;
-
-    setLoginDetails((prevValue) => ({
-      ...prevValue,
-      [name]: value,
-    }));
-  };
 
   const errorType = searchParams.get("q");
 
@@ -49,9 +43,9 @@ const Login = () => {
 
   const mutation: UseMutationResult<any, any, ILoginParams, unknown> = useLoginWithUser();
 
-  const setUser = () => {
-    console.log(loginDetails);
-    mutation.mutate(loginDetails, {
+  const setUserOnsubmit = (values: ILoginParams) => {
+    console.log("onSubmit", values);
+    mutation.mutate(values, {
       onError: onFailure,
       onSuccess,
     });
@@ -68,41 +62,58 @@ const Login = () => {
             <h1 className="text-center font-mono text-20 text-gray-400 pb-4">{APP_NAME}</h1>
           </div>
           {errorType && <AlertError message={errorType} />}
-          <div className="form-group relative mb-4">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Username "
-              name="username"
-              value={loginDetails.username}
-              onChange={changeLoginDetails}
-            />
-            <UserIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
-          </div>
-          <div className="form-group relative mb-4">
-            <input
-              type="password"
-              className="form-control"
-              placeholder="Password"
-              name="password"
-              value={loginDetails.password}
-              onChange={changeLoginDetails}
-            />
-            <EyeIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
-          </div>
+          <Form
+            onSubmit={setUserOnsubmit}
+            validate={(values) => {
+              const errors: OptionalLoginParams = {};
 
-          {mutation.isError && <span className="alert">{mutation.error.response?.data.message || mutation.error.message}</span>}
-
-          <a className="link" href="#">
-            Lost your password?
-          </a>
-          <button
-            className="login-btn bg-gray-700 hover:bg-gray-800 font-bold py-2 px-4 rounded inline-flex justify-center items-center"
-            onClick={setUser}
+              if (!values.username) {
+                errors.username = "Enter Your Username";
+              }
+              if (!values.password) {
+                errors.password = "Enter your Password";
+              }
+              return errors;
+            }}
           >
-            <span>SignIn</span>
-            <ArrowLongRightIcon className=" text-gray-400 dark:text-gray-500 w-7 h-7 mx-2" />
-          </button>
+            {({ handleSubmit, submitting, values, submitError }) => (
+              <form onSubmit={handleSubmit}>
+                {/* {submitError && (
+                  <div
+                    className="alert alert-danger"
+                    dangerouslySetInnerHTML={{
+                      __html: `<strong>Error!</strong> ${submitError}`,
+                    }}
+                  />
+                )} */}
+
+                <div className="form-group relative mb-4">
+                  <Field name="username" className="form-control" component="input" type="text" placeholder="Enter User Name" />
+
+                  <ErrorBlock name="username" />
+
+                  <UserIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
+                </div>
+                <div className="form-group relative mb-4">
+                  <Field name="password" className="form-control" component="input" type="text" placeholder="Enter Password" />
+                  <ErrorBlock name="password" />
+
+                  <EyeIcon className="fa text-gray-400 dark:text-gray-500 w-4 h-4" />
+                </div>
+
+                {mutation.isError && <span className="alert">{mutation.error.response?.data?.message || mutation.error.message}</span>}
+
+                <a className="link" href="#">
+                  Lost your password?
+                </a>
+                <button className="login-btn bg-gray-700 hover:bg-gray-800 font-bold py-2 px-4 rounded inline-flex justify-center items-center">
+                  {submitting ? <span>Signing...</span> : <span>SignIn</span>}
+
+                  <ArrowLongRightIcon className=" text-gray-400 dark:text-gray-500 w-7 h-7 mx-2" />
+                </button>
+              </form>
+            )}
+          </Form>
 
           <Link to="/sign-up" className="link mt-4">
             Don't Have an Account&nbsp;?

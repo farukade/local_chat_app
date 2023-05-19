@@ -1,51 +1,51 @@
-import React, { useState } from "react";
-import { VideoCameraIcon, HomeIcon, ArrowLeftCircleIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
+import { Fragment, useState } from "react";
+import { VideoCameraIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/solid";
 
-//import react pro sidebar components
-import { Sidebar, Menu, MenuItem, useProSidebar } from "react-pro-sidebar";
 import DisplayImage from "./DisplayImage";
 import ThemeToggler from "../../utils/ThemeToggler";
-import ViewMessage from "./ViewMessage";
-
-//import our custom css
+import MobileNavbarChat from "./MobileNavbarChat";
 
 const ShowContacts = () => {
   return (
-    <div id="showContacts">
-      <Sidebar className="pro-sidebar dark:bg-slate-900">
-        <Menu className="dark:bg-slate-900 dark:hover:bg-opacity-90">
-          <div className="m-l-20 flex flex-row justify-between p-5 items-center">
-            <DisplayImage />
-            <div className=" flex flex-row gap-6">
-              <VideoCameraIcon className="Top-Icon w-5 h-5" />
-              <ChatBubbleLeftRightIcon className="Top-Icon w-5 h-5" />
-              <ThemeToggler />
-            </div>
+    <Fragment>
+      <MobileNavbarChat />
+
+      {/* SideBar */}
+      <div className="bg-slate-300 text-slate-900 dark:bg-slate-800 dark:text-blue-100  w-64 space-y-4 py-2 px-2 absolute inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out">
+        {/* Logo */}
+        <div className="flex items-center space-x-2">
+          <DisplayImage />
+          <div className="flex flex-row gap-4 px-8">
+            <VideoCameraIcon className="Top-Icon w-5 h-5" />
+            <ChatBubbleLeftRightIcon className="Top-Icon w-5 h-5" />
+            <ThemeToggler />
           </div>
-          <hr />
-        </Menu>
-        {/* <Menu>
-          <MenuItem prefix={<ArrowLeftCircleIcon className="w-5 h-5" />}>
-            <input type="text" />
-          </MenuItem>
-        </Menu> */}
-        <Menu className="dark:text-slate-900">
-          <MenuItem active={true} icon={<DisplayImage />}>
-            Adekunle Faruk
-          </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-          <MenuItem icon={<DisplayImage />}> Momoh Taiwo </MenuItem>
-        </Menu>
-      </Sidebar>
-      <main>
-        <ViewMessage />
-      </main>
-    </div>
+        </div>
+
+        {/* Nav */}
+        <nav>
+          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
+            Faruk Adekunle
+          </a>
+          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
+            Umar Faruk
+          </a>
+          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
+            Tylerjusfly
+          </a>
+          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
+            Momoh Tyler
+          </a>
+          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
+            K.Wilson
+          </a>
+          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
+            {" "}
+            The Rich Kid
+          </a>
+        </nav>
+      </div>
+    </Fragment>
   );
 };
 

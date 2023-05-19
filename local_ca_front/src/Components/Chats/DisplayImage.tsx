@@ -1,4 +1,3 @@
-import React from "react";
 import ChatLogo from "../../assets/svgs/chat.svg";
 
 const DisplayImage = () => {

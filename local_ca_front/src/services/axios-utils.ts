@@ -2,21 +2,37 @@ import axios from "axios";
 import { IAxiosRequestOptions, ILocalStorageUser } from "../utils/types";
 import { store } from "../redux/App/store";
 import { setLoggedInUser } from "../redux/Features/authSlice";
+import { LOCALHOST_URL } from "../utils/constants";
 
 export const axiosInstance = axios.create({
-  baseURL: "http://localhost:7001",
+  baseURL: LOCALHOST_URL,
   headers: {
     "Content-Type": "application/json",
   },
 });
 
-axiosInstance.interceptors.request.use((config) => {
-  console.log("rnadom call", config);
+// An axios InterCeptor for after Response
+axiosInstance.interceptors.response.use(
+  (response) => {
+    console.log("rnadom call", response);
 
-  // store.dispatch(setLoggedInUser(false));
+    return Promise.resolve(response);
+  },
+  (error) => {
+    console.log(error, "setting err");
 
-  return config;
-});
+    if (error.response.status === 401 || error.response.statusText === "Unauthorized") {
+      store.dispatch(setLoggedInUser(false));
+      localStorage.removeItem("lca_user");
+
+      const redirect = "/?q=session expired";
+
+      window.location.assign(redirect);
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export const request = ({ isAuth = false, ...options }: IAxiosRequestOptions) => {
   const item = localStorage.getItem("lca_user");
