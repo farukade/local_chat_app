@@ -1,7 +1,6 @@
 import { useMutation, useQuery } from "react-query";
 import { ILoginParams, ISignupParams } from "../utils/types";
 import { request } from "../services/axios-utils";
-import { AxiosResponse } from "axios";
 
 // const sendUserDetails = (user: LoginParams) => {
 //   return axiosInstance.post<LoginResponse>("/users/login", user);

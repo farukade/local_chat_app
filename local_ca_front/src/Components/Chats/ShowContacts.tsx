@@ -4,8 +4,23 @@ import { VideoCameraIcon, ChatBubbleLeftRightIcon } from "@heroicons/react/24/so
 import DisplayImage from "./DisplayImage";
 import ThemeToggler from "../../utils/ThemeToggler";
 import MobileNavbarChat from "./MobileNavbarChat";
+import { useQuery } from "react-query";
+import { fetchUser } from "../../services/users-api";
+import { User } from "../../utils/types";
 
 const ShowContacts = () => {
+  const [users, setUsers] = useState([]);
+
+  const { isLoading, isFetching, data, isError, error } = useQuery("users-fetch", fetchUser, {
+    cacheTime: 9000,
+    staleTime: 9000,
+    refetchOnWindowFocus: false,
+  });
+
+  const fetchAvailableContacts = () => {};
+
+  console.log(data?.data);
+
   return (
     <Fragment>
       <MobileNavbarChat />
@@ -24,25 +39,19 @@ const ShowContacts = () => {
 
         {/* Nav */}
         <nav>
-          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
-            Faruk Adekunle
-          </a>
-          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
-            Umar Faruk
-          </a>
-          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
-            Tylerjusfly
-          </a>
-          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
-            Momoh Tyler
-          </a>
-          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
-            K.Wilson
-          </a>
-          <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
-            {" "}
-            The Rich Kid
-          </a>
+          {isLoading || isFetching ? (
+            <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
+              Loading.....
+            </a>
+          ) : (
+            <Fragment>
+              {data?.data.result.map((user: User) => (
+                <a href="#" className="block py-2.5 px-4 rounded hoverEffect">
+                  {user.username}
+                </a>
+              ))}
+            </Fragment>
+          )}
         </nav>
       </div>
     </Fragment>

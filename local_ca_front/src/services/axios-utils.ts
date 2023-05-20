@@ -11,11 +11,21 @@ export const axiosInstance = axios.create({
   },
 });
 
+export const request = ({ isAuth = false, ...options }: IAxiosRequestOptions) => {
+  const item = localStorage.getItem("lca_user");
+  const user: ILocalStorageUser = item ? JSON.parse(item) : null;
+
+  if (isAuth && user) {
+    console.log(isAuth, user);
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${user.token}`;
+  }
+
+  return axiosInstance(options);
+};
+
 // An axios InterCeptor for after Response
 axiosInstance.interceptors.response.use(
   (response) => {
-    console.log("rnadom call", response);
-
     return Promise.resolve(response);
   },
   (error) => {
@@ -33,15 +43,3 @@ axiosInstance.interceptors.response.use(
     return Promise.reject(error);
   }
 );
-
-export const request = ({ isAuth = false, ...options }: IAxiosRequestOptions) => {
-  const item = localStorage.getItem("lca_user");
-  const user: ILocalStorageUser = item ? JSON.parse(item) : null;
-
-  if (isAuth && user) {
-    console.log(isAuth, user);
-    axiosInstance.defaults.headers.common.Authorization = `Bearer ${user.token}`;
-  }
-
-  return axiosInstance(options);
-};

@@ -35,6 +35,14 @@ export interface ILoginParams {
   password: string;
 }
 
+export interface BackendResponse {
+  data: {
+    success: boolean;
+    message: string;
+    result: {} | [];
+  };
+}
+
 export interface ILoginResponse {
   data: {
     success: boolean;
@@ -57,4 +65,18 @@ export interface ILocalStorageUser {
     userType: string;
     id: string;
   };
+}
+
+export interface User {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string;
+  deleted_by: string;
+  username: string;
+  password?: string;
+  user_type: string;
+  photo: string;
+  salt: string;
+  details: string;
 }
