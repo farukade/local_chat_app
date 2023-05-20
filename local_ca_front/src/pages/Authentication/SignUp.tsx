@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { FormEvent, useState } from "react";
 import FullpageLoader from "../../Components/Common/FullpageLoader";
 import chatLogo from "../../assets/svgs/chat.svg";
 
@@ -9,6 +9,7 @@ import { RegisterSuccess } from "../../utils/PopupTab";
 import { usePostSignup } from "../../Hooks/useAuthenticationData";
 import { UseQueryResult } from "react-query";
 import { AxiosResponse } from "axios";
+import { CreateDetails, FormElements } from "../../utils/types";
 
 const SignUp = () => {
   const [username, setUsername] = useState("");
@@ -19,6 +20,14 @@ const SignUp = () => {
     console.log("User created", data.data);
     return RegisterSuccess();
   };
+
+  // async function onSubmit(event: FormEvent<HTMLFormElement>) {
+  //   event.preventDefault();
+
+  //   const elements = event.currentTarget.elements as FormElements<keyof CreateDetails>;
+  //   const username = elements.username.value;
+  //   const password = elements.password.value;
+  // }
 
   const {
     isLoading,
