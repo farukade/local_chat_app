@@ -36,7 +36,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "dev": "set PORT=3002 && yarn start",
+    "dev": "set PORT=3003 && yarn start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
