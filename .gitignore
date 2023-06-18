@@ -15,3 +15,5 @@ asp_backend/bin/
 asp_backend/obj/
 asp_backend/.vscode
 asp_backend/.env
+
+.DS_Store
