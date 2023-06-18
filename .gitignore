@@ -1,3 +1,17 @@
+# Backend, Nodejs Express
 backend/node_modules/
 backend/dist/
 backend/.env
+.vscode
+
+# Frontend
+local_ca_front/node_modules/
+local_ca_front/build/
+local_ca_front/.env
+
+
+# ASP.NET Core
+asp_backend/bin/
+asp_backend/obj/
+asp_backend/.vscode
+asp_backend/.env
